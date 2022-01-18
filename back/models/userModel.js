@@ -2,7 +2,11 @@ module.exports = (sequelize, DataTypes) => {
     const { isEmail } = require('validator');
     const User = sequelize.define("user", {
       
-        pseudo: {
+        firstname: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        lastname: {
             type: DataTypes.STRING,
             allowNull: false
         },
