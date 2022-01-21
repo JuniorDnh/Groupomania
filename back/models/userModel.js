@@ -1,5 +1,4 @@
 module.exports = (sequelize, DataTypes) => {
-    const { isEmail } = require('validator');
     const User = sequelize.define("user", {
       
         firstname: {
