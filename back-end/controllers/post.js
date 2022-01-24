@@ -2,7 +2,7 @@ const db = require("../models");
 const fs = require("fs");
 
 //créer un poste
-exports.create = async (req, res) => {
+exports.create = async (req, res, next) => {
   if (req.file) {
     const imageUrl = `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
@@ -31,7 +31,7 @@ exports.create = async (req, res) => {
 
 //Voir tous les messages
 
-exports.getAllPosts = async (req, res) => {
+exports.getAllPosts = async (req, res, next) => {
   db.Post.findAll({
     include: [db.Like, db.User],
   })
@@ -40,7 +40,7 @@ exports.getAllPosts = async (req, res) => {
 };
 
 //pour n'afficher qu'un seul message sélectionné
-exports.getOnePost = (req, res) => {
+exports.getOnePost = (req, res, next) => {
   db.Post.findOne({
     where: {
       id: req.params.id,
@@ -52,7 +52,7 @@ exports.getOnePost = (req, res) => {
 };
 
 //update un message
-exports.updateOnePost = (req, res) => {
+exports.updateOnePost = (req, res, next) => {
   if (req.file) {
     const imageUrl = `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
@@ -68,7 +68,7 @@ exports.updateOnePost = (req, res) => {
 };
 
 //delete un poste
-exports.deletePost = async (req, res) => {
+exports.deletePost = async (req, res, next) => {
   db.Post.findOne({
     where: {
       id: req.params.id,

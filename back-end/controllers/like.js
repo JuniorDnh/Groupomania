@@ -1,6 +1,6 @@
 const db = require("../models");
 
-exports.likePost = async (req, res) => {
+exports.likePost = async (req, res, next) => {
   let userId = req.body.userId;
   let postId = req.body.postId;
   let alreadyLiked = await db.Like.findOne({
@@ -35,7 +35,7 @@ exports.likePost = async (req, res) => {
   }
 };
 
-exports.getAllLikes = async (req, res) => {
+exports.getAllLikes = async (req, res, next) => {
   db.Like.findAll({
     include: [db.Post],
     where: {

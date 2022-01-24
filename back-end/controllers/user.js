@@ -2,10 +2,12 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require("../models");
-require('dotenv').config();
+require("dotenv").config();
+
+
 
 //USER SIGNUP
-exports.signup = async (req, res) => {
+exports.signup = async (req, res, next) => {
   const salt = await bcrypt.genSalt(10);
 
   const user = await db.User.create({
@@ -13,14 +15,16 @@ exports.signup = async (req, res) => {
     email: req.body.email,
     password: await bcrypt.hash(req.body.password, salt),
   })
-    .then(() => res.status(201).send({ message: "Utilisateur créé avec succès" }))
+    .then(() =>
+      res.status(201).send({ message: "Utilisateur créé avec succès" })
+    )
     .catch((err) => {
       res.status(400).json({ err });
     });
 };
 
 //USER LOGIN
-exports.login = (req, res) => {
+exports.login = (req, res, next) => {
   db.User.findOne({
     where: {
       username: req.body.username,
@@ -43,7 +47,7 @@ exports.login = (req, res) => {
         });
       }
       let token = jwt.sign({ id: user.id }, process.env.TOKEN, {
-        expiresIn: "24h", 
+        expiresIn: "24h",
       });
       res.status(200).send({
         id: user.id,
@@ -59,7 +63,7 @@ exports.login = (req, res) => {
 };
 
 //UPDATE ou mettre des infos dans la base de données des utilisateurs
-exports.changeInfo = (req, res) => {
+exports.changeInfo = (req, res, next) => {
   const userId = req.body.userId;
 
   if (req.file) {
@@ -77,7 +81,7 @@ exports.changeInfo = (req, res) => {
 };
 
 //pour obtenir tous les utilisateurs
-exports.getAllUsers = async (req, res) => {
+exports.getAllUsers = async (req, res, next) => {
   const users = await db.User.findAll({
     include: [db.Post],
   });
@@ -85,7 +89,7 @@ exports.getAllUsers = async (req, res) => {
 };
 
 //pour obtenir les informations d'un seul utilisateur
-exports.getOneUser = async (req, res) => {
+exports.getOneUser = async (req, res, next) => {
   db.User.findOne({
     where: {
       id: req.params.id,
@@ -96,12 +100,10 @@ exports.getOneUser = async (req, res) => {
 };
 
 //supprimer le compte et tous ses messages et commentaires de l'utilisateur totalement de la base de données
-exports.deleteUser = async (req, res) => {
-  db.User.destroy({
-    where: {
-      id: req.params.id,
-    },
-  });
+exports.deleteUser = async (req, res, next) => {
+  
+  db.User.destroy({ where: { id: req.params.id } });
+  
   db.Post.destroy({
     where: {
       userId: req.params.id,
@@ -118,4 +120,5 @@ exports.deleteUser = async (req, res) => {
         .json({ message: "le message et le commentaire de l'utilisateur ont été supprimés avec succès" })
     )
     .catch((err) => res.status(400).json({ err }));
+ 
 };

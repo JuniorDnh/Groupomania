@@ -1,6 +1,6 @@
 const db = require("../models");
 
-exports.createComment = async (req, res) => {
+exports.createComment = async (req, res, next) => {
   const newComment = await db.Comment.create({
     content: req.body.content,
     userId: req.body.userId,
@@ -13,7 +13,7 @@ exports.createComment = async (req, res) => {
     .catch((err) => res.status(400).json({ err }));
 };
 
-exports.getComment = async (req, res) => {
+exports.getComment = async (req, res, next) => {
   await db.Comment.findAll({
     include: [db.User],
     where: {
@@ -24,7 +24,7 @@ exports.getComment = async (req, res) => {
     .catch((err) => res.status(400).json({ err }));
 };
 
-exports.deleteComment = async (req, res) => {
+exports.deleteComment = async (req, res, next) => {
   db.Post.decrement({ comments: 1 }, { where: { id: req.body.postId } });
   db.Comment.destroy({
     where: {
