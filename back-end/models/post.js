@@ -12,11 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       image: {
         type: DataTypes.STRING(500),
       },
-      likes: {
-        type: DataTypes.INTEGER(11),
-        allowNull: false,
-        defaultValue: 0,
-      },
       comments: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
@@ -25,11 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     });
   
     Post.associate = (models) => {
-      Post.belongsTo(models.User);
-      Post.hasMany(models.Like, {
+      Post.belongsTo(models.User, {
         onDelete: "cascade",
       });
     };
+      
   
     Post.sync().then(() => {
       console.log("Post table created");
