@@ -117,7 +117,7 @@ exports.deleteUser = async (req, res, next) => {
     .then(() =>
       res
         .status(200)
-        .json({ message: "le message et le commentaire de l'utilisateur ont été supprimés avec succès" })
+        .json({ message: "l'utilisateur et tout son contenue ont été supprimés avec succès" })
     )
     .catch((err) => res.status(400).json({ err }));
  

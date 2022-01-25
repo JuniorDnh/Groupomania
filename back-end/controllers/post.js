@@ -12,14 +12,12 @@ exports.create = async (req, res, next) => {
       userId: req.body.userId,
       username: req.body.username,
       image: imageUrl,
-      likes: 0,
     });
   } else {
     await db.Post.create({
       content: req.body.content,
       userId: req.body.userId,
       username: req.body.username,
-      likes: 0,
     });
   }
   try {
@@ -29,8 +27,7 @@ exports.create = async (req, res, next) => {
   }
 };
 
-//Voir tous les messages
-
+//Voir tous les postes
 exports.getAllPosts = async (req, res, next) => {
   db.Post.findAll({
     include: [db.User],
@@ -39,7 +36,7 @@ exports.getAllPosts = async (req, res, next) => {
     .catch((err) => res.status(400).json({ err }));
 };
 
-//pour n'afficher qu'un seul message sélectionné
+//pour n'afficher qu'un seul poste
 exports.getOnePost = (req, res, next) => {
   db.Post.findOne({
     where: {
@@ -51,7 +48,7 @@ exports.getOnePost = (req, res, next) => {
     .catch((err) => res.status(400).json({ err }));
 };
 
-//update un message
+//update un poste
 exports.updateOnePost = (req, res, next) => {
   if (req.file) {
     const imageUrl = `${req.protocol}://${req.get("host")}/images/${
@@ -93,7 +90,8 @@ exports.deletePost = async (req, res, next) => {
       }
     })
 
-    .then(() => res.status(200).json({ message: "message supprimé avec succès" }))
+    .then(() =>
+      res.status(200).json({ message: "message supprimé avec succès" })
+    )
     .catch((err) => res.status(400).json({ err }));
 };
-
