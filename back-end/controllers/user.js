@@ -3,11 +3,15 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require("../models");
 require("dotenv").config();
-
+const { validationResult } = require("express-validator");
 
 
 //USER SIGNUP
 exports.signup = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const salt = await bcrypt.genSalt(10);
 
   const user = await db.User.create({
@@ -25,6 +29,10 @@ exports.signup = async (req, res, next) => {
 
 //USER LOGIN
 exports.login = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   db.User.findOne({
     where: {
       username: req.body.username,
@@ -64,6 +72,10 @@ exports.login = (req, res, next) => {
 
 //UPDATE ou mettre des infos dans la base de données des utilisateurs
 exports.changeInfo = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const userId = req.body.userId;
 
   if (req.file) {
