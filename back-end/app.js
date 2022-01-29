@@ -9,7 +9,7 @@ const db = require("./models");
 const app = express();
 
 app.use(helmet());
-app.use(cors());
+
 
 app.use(express.json());
 //Chemin vers le dossier où stocker les fichiers entrant dans l'application
@@ -30,6 +30,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATH, OPTIONS');
+  res.header('Access-Control-Allow-Credentials', true);
   next();
 });
 

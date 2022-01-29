@@ -14,7 +14,7 @@ exports.createComment = async (req, res, next) => {
     .catch((err) => res.status(400).json({ err }));
 };
 
-//voir un commentaire
+//voir les commentaires
 exports.getComment = async (req, res, next) => {
   await db.Comment.findAll({
     include: [db.User],
