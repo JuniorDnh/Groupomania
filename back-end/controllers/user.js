@@ -110,7 +110,6 @@ exports.getOneUser = async (req, res, next) => {
 
 //supprimer le compte et tous ses messages et commentaires de l'utilisateur totalement de la base de données
 exports.deleteUser = async (req, res, next) => {
-  
   db.User.destroy({ where: { id: req.params.id } });
   
   db.Post.destroy({
@@ -131,3 +130,4 @@ exports.deleteUser = async (req, res, next) => {
     .catch((err) => res.status(400).json({ err }));
  
 };
+

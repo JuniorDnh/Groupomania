@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {  useState } from "react";
 import Routes from "./components/routes";
+import { UidContext } from "./components/AppContext";
+import Axios from "axios";
+
 
 const App = () => {
+  const [uid] = useState(null);
+  
+
+  
   return (
-    <div>
+    <UidContext.Provider value={uid}>
       <Routes />
-    </div>
+    </UidContext.Provider>
   );
 };
 
