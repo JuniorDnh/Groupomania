@@ -4,7 +4,7 @@ import ls from 'localstorage-slim'; //cryptage des donnes dans le localstorage
 ls.config.encrypt = true;
 
 const axios = require("axios");
-const instance = axios.create({        //installation de l'URL de base
+const urlBase = axios.create({        //installation de l'URL de base
   baseURL: "http://localhost:5000/api",
 });
 
@@ -18,7 +18,7 @@ if (!user) {
   };
 } else {
   try {
-    instance.defaults.headers.common["Authorization"] = user.accessToken;
+    urlBase.defaults.headers.common["Authorization"] = user.accessToken;
   } catch (ex) {
     user = {
       userId: -1,
@@ -50,7 +50,7 @@ export default createStore({
     logUser: async function (state, user) {
       state.user = {};
 
-      instance.defaults.headers.common["Authorization"] = user.accessToken;
+      urlBase.defaults.headers.common["Authorization"] = user.accessToken;
       ls.set("user", user); //cryptage des donnes dans le localstorage
 
       state.user.userId = user.id;
@@ -89,14 +89,14 @@ export default createStore({
   actions: {
     createAccount: async ({ commit }, userInfos) => {
       commit;
-      instance
+      urlBase
         .post("/user/register", userInfos)
         .then((response) => {
           commit("setStatus", "connected");
           response.data.bpi;
         })
         .then(() => {
-          instance
+          urlBase
             .post("/user/login", userInfos)
             .then((response) => {
               commit("setStatus", "connected");
@@ -114,7 +114,7 @@ export default createStore({
         });
     },
     loginAccount: async ({ commit }, userInfos) => {
-      await instance
+      await urlBase
         .post("/user/login", userInfos)
         .then((response) => {
           commit("logUser", response.data);
@@ -141,7 +141,7 @@ export default createStore({
       formData.append("userId", userId);
       formData.append("bio", bio);
       formData.append("role", role);
-      await instance
+      await urlBase
         .put("/user/userInfo", formData, {
           headers: {
             Authorization: "Bearer " + user.accessToken,
@@ -157,7 +157,7 @@ export default createStore({
 
     postComment: async ({ commit }, commentInfos) => {
       commit;
-      await instance
+      await urlBase
         .post(`/posts/${commentInfos.postId}/comment`, commentInfos, {
           headers: {
             Authorization: "Bearer " + user.accessToken,
@@ -173,7 +173,7 @@ export default createStore({
 
     getOneUserInfos: async ({ commit }, userId) => {
       commit;                                        //fonction pour obtenir les informations de l'utilisateur
-      await instance
+      await urlBase
         .get(`/user/userInfo/${userId}`)
         .then((response) => {
           commit("changeInfo", response.data.user);
@@ -185,7 +185,7 @@ export default createStore({
 
     deleteAccount: async ({ commit }, userId) => {
       commit;
-      await instance
+      await urlBase
         .delete(`/user/userInfo/${userId}`, {
           headers: {
             Authorization: "Bearer " + user.accessToken,
@@ -212,7 +212,7 @@ export default createStore({
       formData.append("postId", postId);
       formData.append("content", content);
 
-      await instance
+      await urlBase
         .put(`/posts/${postInfos.postId}`, formData, {
           headers: {
             Authorization: "Bearer " + user.accessToken,
