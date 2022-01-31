@@ -12,7 +12,8 @@ module.exports = (req, res, next) => {
     //si on a un userId mais qu'il est différent de celui stocké dans le token
     if (req.body.userId && req.body.userId != userId) {
       throw "User Id non valable";
-    } else {
+    }
+     else {
       next();
     }
   } catch {

@@ -57,6 +57,7 @@ exports.login = (req, res, next) => {
       let token = jwt.sign({ id: user.id }, process.env.TOKEN, {
         expiresIn: "24h",
       });
+      
       res.status(200).send({
         id: user.id,
         username: user.username,
@@ -69,6 +70,7 @@ exports.login = (req, res, next) => {
       res.status(500).send({ message: err.message });
     });
 };
+
 
 //UPDATE ou mettre des infos dans la base de données des utilisateurs
 exports.changeInfo = (req, res, next) => {

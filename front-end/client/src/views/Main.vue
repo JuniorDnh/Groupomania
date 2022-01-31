@@ -84,7 +84,7 @@
                     :to="{ name: 'Modification', params: { postId: post.id } }"
                     class="link button-pencil"
                   >
-                    Modifier votre Publication
+                    Modifiez votre Publication
                     <i class="fas fa-pencil-alt"></i>
                   </router-link>
                   <Delete-button :postId="post.id"></Delete-button>
