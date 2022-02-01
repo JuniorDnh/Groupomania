@@ -25,14 +25,14 @@ A effectuez dans l'ordre pour que l'app fonctionne correctement :
 ## BACK-END : ##
 
 Une fois le repo cloné, allez dans le répertoire du backend et lancez `npm install` pour installer toutes les dépendances nécessaires au serveur back-end.
-Démarrer le server :
 
- `npm start`
+Démarrer le server : `npm start`
+
 
  
 ## FRONT-END : ##
 
 Une fois le repo cloné, allez dans le répertoire du backend et lancez `npm install` pour installer toutes les dépendances nécessaires au serveur front-end.
 
-Démarrer le server :
-    `npm run serve`
+Démarrer le server : `npm run serve`
+    
