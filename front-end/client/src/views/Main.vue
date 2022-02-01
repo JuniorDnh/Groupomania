@@ -85,7 +85,7 @@
                     class="link button-pencil"
                   >
                     Modifiez votre Publication
-                    <i class="fas fa-pencil-alt"></i>
+                    <i class="fas fa-user-edit"></i>
                   </router-link>
                   <Delete-button :postId="post.id"></Delete-button>
                 </div>

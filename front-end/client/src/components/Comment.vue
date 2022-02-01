@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="comment-div">
-      <i class="far fa-comment-dots comment-icone" @click="getComments"></i>
+      <i class="fas fa-comments comment-icone" @click="getComments"></i>
 
       <div v-if="commentFromPost.length >= 1" class="comment-section">
         <h4>Commentaires</h4>

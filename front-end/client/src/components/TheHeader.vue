@@ -102,6 +102,7 @@ header {
     justify-content: center;
     list-style: none;
     margin: 0 2rem 0 0;
+    margin-top: 0.4em;
     li {
       padding: 1rem;
       transition: transform 0.3s;
