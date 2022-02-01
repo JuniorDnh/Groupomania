@@ -1,6 +1,6 @@
 PROJET Full-Stack : GROUPOMANIA
 
-![Groupomania logo](./front-end/client/src/assets/icon-left-font-monochrome-black.png);
+![Groupomania logo](./front-end/client/src/assets/icon-left-font-monochrome-black.svg);
 
 Réseau social interne d'entreprise
 Le but de ce projet est de permettre aux employés d'interagir les uns avec les autres en créant des postes et être capable de les commenter.
